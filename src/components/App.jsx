@@ -1,22 +1,22 @@
 import React, {useEffect} from 'react';
-import {useSelector, useDispatch} from "react-redux";
-import { getBreads, getFillings, getMenu, getSauces, getVegetables } from '../api';
-import Header from './Header/Header.jsx';
+import { useDispatch} from "react-redux";
+import { getMenu } from '../api';
 import MainLayout from './MainLayout/MainLayout.jsx';
 import ProductBord from './ProductBord/ProductBord.jsx';
 
 const App = () => {
-    const data = useSelector(state => state);
     const dispatch = useDispatch();
 
     useEffect(()=>{
-        dispatch(getSauces())
+        dispatch(getMenu())
     },[dispatch])
 
-    console.log(data)
+
 
     return (
-        <MainLayout content={<ProductBord/>}/>
+        <>
+            <MainLayout content={<ProductBord/>}/>
+        </>
     );
 };
 

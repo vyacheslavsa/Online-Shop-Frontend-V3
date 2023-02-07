@@ -1,0 +1,10 @@
+.products_board {
+    width: 75%;
+    height: auto;
+    margin-left: 10px;
+    text-align: center;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}

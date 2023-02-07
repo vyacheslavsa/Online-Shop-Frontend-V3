@@ -1,6 +1,7 @@
 const path = require("path");
 const HTMLWebpackPlugin = require("html-webpack-plugin");
 const {CleanWebpackPlugin} = require("clean-webpack-plugin");
+const CopyWebpackPlugin = require("copy-webpack-plugin")
 const Dotenv = require('dotenv-webpack');
 
 module.exports = {
@@ -14,6 +15,7 @@ module.exports = {
     },
     devServer: {
         port: 3000,
+        devMiddleware: { writeToDisk: true },
     },
     plugins: [
         new HTMLWebpackPlugin({
@@ -21,6 +23,14 @@ module.exports = {
         }),
         new Dotenv(),
         new CleanWebpackPlugin(),
+        new CopyWebpackPlugin({
+            patterns: [
+                {
+                    from: path.resolve(__dirname, "src/assets"),
+                    to: path.resolve(__dirname, "dist"),
+                },
+            ]
+        })
     ],
     module: {
         rules: [
