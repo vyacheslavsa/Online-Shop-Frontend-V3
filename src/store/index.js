@@ -3,6 +3,6 @@ import appSlice from '../features/root-slice'
 
 export default  configureStore({
     reducer: {
-        root: appSlice
+        data: appSlice
     }
 });
