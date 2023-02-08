@@ -1,18 +1,27 @@
 import React from 'react'
 import './SideBar.css'
+import {TAB_CATEGORIES} from "../../constans";
+import {useDispatch, useSelector} from "react-redux";
+import {setTabProducts} from "../../features/rootSlice";
+import cs from 'classnames'
+
 
 const SideBar = () => {
-  return (
-      <aside className="side_bar">
-        <nav className="side_bar__link active_tab" id="pizza">Пицца</nav>
-        <nav className="side_bar__link" id="shaurma">Шаурма</nav>
-        <nav className="side_bar__link" id="sandwiches">Сендвичи</nav>
-        <nav className="side_bar__link" id="burgers">Бургеры</nav>
-        <nav className="side_bar__link" id="chicken">Курица & Картофель</nav>
-        <nav className="side_bar__link" id="salads">Тортилья & Салаты</nav>
-        <nav className="side_bar__link" id="drinks">Напитки & Десерты</nav>
-      </aside>
-  )
+    const dispatch = useDispatch()
+    const {activeTabProducts} = useSelector(state => state.data);
+    return (
+        <aside className="side_bar">
+            {TAB_CATEGORIES.map((tab, idx) =>
+                <nav
+                    className={cs("side_bar__link", {["active_tab"]: activeTabProducts === tab.category})}
+                    id={tab.category}
+                    key={idx}
+                    onClick={() => dispatch(setTabProducts(tab.category))}
+                >
+                    {tab.name}
+                </nav>)}
+        </aside>
+    )
 }
 
 export default SideBar

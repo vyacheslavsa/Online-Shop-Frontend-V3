@@ -1,17 +1,16 @@
 import React from 'react'
 import './ProductBord.css'
-import {useDispatch, useSelector} from "react-redux";
-import Loading from "../Loading/Loading.jsx";
+import {useSelector} from "react-redux";
+import Loading from "../Loading/Loading"
+import ProductCard from "../ProductCard/ProductCard";
 
 const ProductBord = () => {
-
-    const dispatch = useDispatch();
-    const {menu ,loadings} = useSelector(state => state.data)
+    const {menu, loadings, activeTabProducts} = useSelector(state => state.data);
+    const filteredData = menu.filter(item => item.category === activeTabProducts);
 
     return (
-        <main className="products_board">
-            {<Loading/>}
-            {/*{loadings.menuLoading ? <Loading/> : menu.map(card => <ProductCard info={card} key={card._id}/>)}*/}
+        <main className={loadings.menuLoading ? "loading_board" : "products_board"}>
+            {loadings.menuLoading ? <Loading/> : filteredData.map(card => <ProductCard info={card} key={card._id}/>)}
         </main>
     )
 }

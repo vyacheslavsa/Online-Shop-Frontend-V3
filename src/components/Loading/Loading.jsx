@@ -1,5 +1,6 @@
 import React from 'react';
 import './Loading.css'
 
-const Loading = () => <span className="loader" ></span>;
-export default Loading;
+export default function () {
+    return <span className="loader"></span>;
+}

@@ -1,23 +1,23 @@
 import React from 'react'
-import Header from '../Header/Header.jsx'
-import Modal from '../Modal/Modal.jsx'
-import SideBar from '../SideBar/SideBar.jsx'
+import Header from '../Header/Header'
+import Modal from '../Modal/Modal'
+import SideBar from '../SideBar/SideBar'
 import './MainLayout.css'
-import Loading from "../Loading/Loading.jsx";
+import {TEXT_HEADER} from "../../constans";
 
-const MainLayout = ({content}) => {
-  return (
-    <>
-      <Header text="СДЕЛАЙТЕ ЗАКАЗ НАПРЯМУЮ ИЗ РЕСТОРАНА"/>
-      <div className="container">
-          <div className="left_content">
-            <SideBar/>
-          </div>
-          {content}
-      </div>
-      <Modal/>
-    </>
-  )
+const MainLayout = ({children}) => {
+    return (
+        <>
+            <Header text={TEXT_HEADER}/>
+            <div className="container">
+                <div className="left_content">
+                    <SideBar/>
+                </div>
+                {children}
+            </div>
+            <Modal/>
+        </>
+    )
 }
 
 export default MainLayout

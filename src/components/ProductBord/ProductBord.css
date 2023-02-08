@@ -3,8 +3,17 @@
     height: auto;
     margin-left: 10px;
     text-align: center;
+    min-height: calc(100vh - 92px);
 
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 15px;
+}
+
+.loading_board{
+    width: 75%;
+    min-height: calc(100vh - 92px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

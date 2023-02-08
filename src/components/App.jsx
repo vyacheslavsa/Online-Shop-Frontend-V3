@@ -1,23 +1,21 @@
 import React, {useEffect} from 'react';
-import { useDispatch} from "react-redux";
-import { getMenu } from '../api';
-import MainLayout from './MainLayout/MainLayout.jsx';
-import ProductBord from './ProductBord/ProductBord.jsx';
+import {useDispatch} from "react-redux";
+import {getMenu} from '../api';
+import MainLayout from './MainLayout/MainLayout';
+import ProductBord from './ProductBord/ProductBord';
 
 const App = () => {
     const dispatch = useDispatch();
 
-    useEffect(()=>{
+    useEffect(() => {
         dispatch(getMenu())
-    },[dispatch])
-
-
+    }, [dispatch])
 
     return (
-        <>
-            <MainLayout content={<ProductBord/>}/>
-        </>
-    );
+        <MainLayout>
+            <ProductBord/>
+        </MainLayout>
+    )
 };
 
 export default App;
