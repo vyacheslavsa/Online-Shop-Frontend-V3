@@ -163,7 +163,7 @@
     padding-bottom: 10px;
 }
 
-.modal_window__nameSandwitch {
+.modal_window__nameSandwich {
     margin-top: 20px;
     margin-bottom: 0 !important;
 }
@@ -185,4 +185,5 @@
 
 .modal_price {
     margin-right: 10px;
+    margin-bottom: 0 !important;
 }

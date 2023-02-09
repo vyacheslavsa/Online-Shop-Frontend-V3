@@ -38,6 +38,7 @@ const rootSlice = createSlice({
         },
         setOpenModal: (state, action) => {
             state.openModal = action.payload
+            state.activeTabModal = "sizes"
         },
         setCustomSandwich: (state, action) => {
             state.customSandwich = action.payload

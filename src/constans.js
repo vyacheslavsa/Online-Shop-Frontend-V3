@@ -73,4 +73,13 @@ export const TABS_MODAL = [
         category: ALL_CATEGORIES.done,
         name: 'Готово!'
     },
-]
+];
+
+export const MODAL_TAB_TEXT = {
+    [ALL_CATEGORIES.sizes]: "Выберите размер сендвича",
+    [ALL_CATEGORIES.breads]: "Хлеб для сендвича на выбор",
+    [ALL_CATEGORIES.vegetables]: "Дополнительные овощи бесплатно",
+    [ALL_CATEGORIES.sauces]: "Выберите три бесплатных соуса по вкусу",
+    [ALL_CATEGORIES.fillings]: "Добавьте начинку по вкусу",
+    [ALL_CATEGORIES.done]: "Проверьте и добавьте в корзину",
+}

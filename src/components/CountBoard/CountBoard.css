@@ -1,0 +1,31 @@
+.product_card__count {
+    margin: 10px 0;
+    font-size: 12px;
+}
+
+.product_card__inc-dec {
+    width: 25px;
+    height: 25px;
+    background-color: var(--white);
+    border-radius: 50%;
+    font-size: 20px;
+    color: var(--gray300);
+    box-shadow: 0 1px 4px var(--gray600);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.product_card__value {
+    width: 60px;
+    height: 100%;
+    border-radius: var(--default-border-radius);
+    background-color: var(--white);
+    box-shadow: 0 1px 4px var(--gray600);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 10px;
+}
