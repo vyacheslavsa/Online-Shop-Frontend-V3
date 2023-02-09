@@ -38,13 +38,15 @@ const rootSlice = createSlice({
         },
         setOpenModal: (state, action) => {
             state.openModal = action.payload
-            state.activeTabModal = "sizes"
         },
         setCustomSandwich: (state, action) => {
             state.customSandwich = action.payload
         },
         setShoppingCart: (state, action) => {
             state.shoppingCart = action.payload
+        },
+        setMenu: (state, action) => {
+            state.menu = action.payload
         }
     },
     extraReducers: {
@@ -156,5 +158,5 @@ const rootSlice = createSlice({
     },
 });
 
-export const {setTabProducts, setTabModal, setOpenModal} = rootSlice.actions;
+export const {setTabProducts, setTabModal, setOpenModal, setCustomSandwich, setShoppingCart, setMenu} = rootSlice.actions;
 export default rootSlice.reducer;

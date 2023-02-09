@@ -1,11 +1,16 @@
 import React from 'react';
 import './ProductCard.css'
 import Button from "../Button/Button";
-import {useDispatch} from "react-redux";
-import {setOpenModal} from "../../features/rootSlice";
+import {useDispatch, useSelector} from "react-redux";
+import {setCustomSandwich, setMenu, setOpenModal, setShoppingCart} from "../../features/rootSlice";
 import CountBoard from "../CountBoard/CountBoard";
+import cs from 'classnames'
 
-const ProductCard = ({info, variant = "menu"}) => {
+const {v4: uuidv4} = require('uuid');
+
+const ProductCard = ({info, variant = "menu", onClick}) => {
+    const {shoppingCart, customSandwich, menu} = useSelector(state => state.data)
+
     const dispatch = useDispatch()
     const getLinkLogo = (currentCategory) => {
         switch (currentCategory) {
@@ -22,12 +27,44 @@ const ProductCard = ({info, variant = "menu"}) => {
 
     const isSandwiches = info.category === 'sandwiches'
 
-    const collectSandwich = () => {
+    const collectSandwich = (currentProduct) => {
         dispatch(setOpenModal(true))
+        dispatch(setCustomSandwich({
+            allIdIngredients: [],
+            count: currentProduct.count,
+            image: currentProduct.image,
+            name: currentProduct.name,
+            price: 0,
+            _id: uuidv4()
+        }))
     }
 
-    const addProductInShoppingCart = () => {
-        console.log('addProductInShoppingCart')
+
+    const addProductInShoppingCart = (currentProduct) => {
+        const findElement = [...shoppingCart].find(item => item._id === currentProduct._id)
+        if (!findElement) {
+            dispatch(setShoppingCart([...shoppingCart, {...currentProduct}]))
+        } else {
+            const copyShoppingCart = [...shoppingCart]
+            const index = copyShoppingCart.findIndex(item => item._id === findElement._id)
+            const countInShoppingCart = shoppingCart.find(item => item._id === {...currentProduct}._id)
+            const copyFindElement = {...findElement}
+            copyFindElement.count = currentProduct.count + countInShoppingCart.count
+            copyShoppingCart[index] = copyFindElement
+            dispatch(setShoppingCart([...copyShoppingCart]))
+        }
+    }
+
+    const selectedIngredient = (id) => customSandwich.allIdIngredients.find(item => item === id)
+
+    const changeCount = (id, event) => {
+        const copyMenu = [...menu]
+        const resultSearch = copyMenu.find(item => item._id === id)
+        const indexElement = copyMenu.findIndex(item => item._id === resultSearch._id)
+        const copyResult = {...resultSearch}
+        event === 'inc' ? copyResult.count++ : copyResult.count>1 && copyResult.count--
+        copyMenu[indexElement] = copyResult
+        dispatch(setMenu(copyMenu))
     }
 
     return (
@@ -49,13 +86,17 @@ const ProductCard = ({info, variant = "menu"}) => {
                             <a>{info.description}</a>
                         </div>}
                     <p className="product_card__price">Цена: {info.price} руб.</p>
-                    <CountBoard count={1} decClick={()=>console.log('dec')} incClick={()=>console.log('inc')}/>
-                    <Button onClick={isSandwiches ? () => collectSandwich() : () => addProductInShoppingCart()}>
+                    <CountBoard count={info.count} decClick={() => changeCount(info._id, 'dec')} incClick={() => changeCount(info._id, 'inc')}/>
+                    <Button onClick={isSandwiches ? () => collectSandwich(info) : () => addProductInShoppingCart(info)}>
                         {isSandwiches ? "СОБРАТЬ" : "В КОРЗИНУ"}
                     </Button>
                 </article>
                 :
-                <div className="modal_window__card" id={info._id}>
+                <div
+                    className={cs("modal_window__card", {["selected_ingredient"]: customSandwich.hasOwnProperty('allIdIngredients') && selectedIngredient(info._id)})}
+                    id={info._id}
+                    onClick={() => onClick(info)}
+                >
                     <div className="product_card__image modal_image">
                         <img src={info.image} alt="no_image"/>
                     </div>
