@@ -34,8 +34,9 @@ const ProductCard = ({info, variant = "menu", onClick}) => {
             count: currentProduct.count,
             image: currentProduct.image,
             name: currentProduct.name,
-            price: 0,
-            _id: uuidv4()
+            price: currentProduct.price,
+            _id: uuidv4(),
+            defaultPrice: currentProduct.price
         }))
     }
 

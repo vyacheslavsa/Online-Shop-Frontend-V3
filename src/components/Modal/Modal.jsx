@@ -31,6 +31,7 @@ const Modal = () => {
         const concatData = [];
         CATEGORY.forEach((item) => concatData.push(...data[item]));
         const res = obj.allIdIngredients.map((value) => concatData.find((item) => value === item._id).price);
+        res.push(customSandwich.defaultPrice)
         return res.reduce((acc, cur) => acc + cur);
     }
 
@@ -94,7 +95,7 @@ const Modal = () => {
         if (copyObj.allIdIngredients.length) {
             copyObj.price = calculatePrice(copyObj);
         } else {
-            copyObj.price = customSandwich.price;
+            copyObj.price = customSandwich.defaultPrice;
         }
 
         dispatch(setCustomSandwich(copyObj))

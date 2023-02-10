@@ -230,3 +230,9 @@
 
     min-height: calc(100% - 5% - 265px) !important;
 }
+
+.loading_state {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
