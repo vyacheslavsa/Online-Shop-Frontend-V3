@@ -30,9 +30,7 @@ const Modal = () => {
     const calculatePrice = (obj) => {
         const concatData = [];
         CATEGORY.forEach((item) => concatData.push(...data[item]));
-        const res = obj.allIdIngredients.map((value) => {
-            return concatData.find((item) => value === item._id).price;
-        });
+        const res = obj.allIdIngredients.map((value) => concatData.find((item) => value === item._id).price);
         return res.reduce((acc, cur) => acc + cur);
     }
 
@@ -96,7 +94,7 @@ const Modal = () => {
         if (copyObj.allIdIngredients.length) {
             copyObj.price = calculatePrice(copyObj);
         } else {
-            copyObj.price = 0;
+            copyObj.price = customSandwich.price;
         }
 
         dispatch(setCustomSandwich(copyObj))

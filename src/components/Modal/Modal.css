@@ -1,3 +1,30 @@
+Skip to content
+Product
+Solutions
+Open Source
+Pricing
+Search
+Sign in
+Sign up
+vyacheslavsa
+/
+Online-Shop-Frontend-V2
+Public
+Code
+Issues
+Pull requests
+Actions
+Projects
+Security
+Insights
+Online-Shop-Frontend-V2/src/components/Modal/Modal.css
+@vyacheslavsa
+vyacheslavsa fix styles
+Latest commit 0d66dc0 last week
+ History
+ 1 contributor
+232 lines (195 sloc)  4.08 KB
+
 .modal_bg {
     display: none;
 }
@@ -52,7 +79,7 @@
 }
 
 .modal_window__content {
-    height: 100%;
+    height: calc(90% - 58px);
     background-color: var(--gray100);
 
     display: flex;
@@ -63,7 +90,7 @@
 .modal_window__tabs_panel {
     display: flex;
     align-items: center;
-    height: 50px;
+    min-height: 50px;
     width: 90%;
     border-radius: var(--default-border-radius);
     background-color: var(--white);
@@ -102,14 +129,56 @@
 .modal_window__ingredients {
     width: 90%;
     padding: 20px 0;
-    height: 67%;
+    height: fit-content;
+    min-height: calc(100% - 108px - 5%);
     overflow-y: scroll;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1em;
 }
 
-.loading_state {
+.modal_window__card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    border-radius: var(--default-border-radius);
+    padding: 10px;
+    cursor: pointer;
+    height: fit-content;
+}
+
+.modal_window__card:hover {
+    background-color: var(--yellow100);
+}
+
+.modal_image {
+    width: 150px !important;
+    height: 150px;
+}
+
+.modal_image img {
+    width: 100% !important;
+    height: 100% !important;
+    box-sizing: border-box;
+}
+
+.modal_window__text {
+    margin: 10px 0;
+    min-height: 54px;
+}
+
+.modal_window__price {
+    border-top: 2px solid var(--gray600);
+    color: var(--orange200);
+    padding-top: 10px;
+}
+
+.modal_window__description {
+    width: 100%;
+}
+
+.modal_window__description p {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -125,12 +194,6 @@
 
 .have_ingredients {
     background-color: var(--orange100);
-}
-
-.done_tab {
-    display: flex;
-    gap: 0;
-    overflow: hidden;
 }
 
 .modal_window__leftContent {
@@ -163,7 +226,7 @@
     padding-bottom: 10px;
 }
 
-.modal_window__nameSandwich {
+.modal_window__nameSandwitch {
     margin-top: 20px;
     margin-bottom: 0 !important;
 }
@@ -179,11 +242,18 @@
     margin-top: 10px;
 }
 
-.modal_btn {
-    margin-top: 0;
-}
-
 .modal_price {
     margin-right: 10px;
-    margin-bottom: 0 !important;
+}
+
+.modal_btn {
+    margin-top: 0 !important;
+}
+
+.done_tab {
+    display: flex;
+    gap: 0;
+    overflow: hidden;
+
+    min-height: calc(100% - 5% - 265px) !important;
 }

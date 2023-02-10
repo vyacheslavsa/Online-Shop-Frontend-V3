@@ -2,7 +2,6 @@ import {createAsyncThunk} from "@reduxjs/toolkit";
 
 const BASE_URL = process.env.REACT_APP_BASEURL;
 
-console.log(BASE_URL)
 const getData = (url, path) =>
     createAsyncThunk(path, async (_, {rejectWithValue}) => {
         try {
