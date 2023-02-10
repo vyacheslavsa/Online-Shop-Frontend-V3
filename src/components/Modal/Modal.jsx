@@ -4,11 +4,11 @@ import cs from 'classnames'
 import {useDispatch, useSelector} from "react-redux";
 import {setCustomSandwich, setOpenModal, setShoppingCart, setTabModal} from "../../features/rootSlice";
 import {ALL_CATEGORIES, CATEGORY, MODAL_TAB_TEXT, TABS_MODAL} from "../../constans";
-import {getBreads, getFillings, getSauces, getSizes, getVegetables} from "../../api";
 import Loading from "../Loading/Loading";
 import ProductCard from "../ProductCard/ProductCard";
 import CountBoard from "../CountBoard/CountBoard";
 import Button from "../Button/Button";
+import { getData } from '../../api';
 
 const Modal = () => {
     const dispatch = useDispatch();
@@ -17,11 +17,11 @@ const Modal = () => {
 
     useEffect(() => {
         if (data.openModal) {
-            if (data.activeTabModal === "sizes" && !data[data.activeTabModal].length) dispatch(getSizes())
-            if (data.activeTabModal === "breads" && !data[data.activeTabModal].length) dispatch(getBreads())
-            if (data.activeTabModal === "vegetables" && !data[data.activeTabModal].length) dispatch(getVegetables())
-            if (data.activeTabModal === "sauces" && !data[data.activeTabModal].length) dispatch(getSauces())
-            if (data.activeTabModal === "fillings" && !data[data.activeTabModal].length) dispatch(getFillings())
+            if (data.activeTabModal === ALL_CATEGORIES.sauces && !data[data.activeTabModal].length) dispatch(getData(ALL_CATEGORIES.sizes))
+            if (data.activeTabModal === ALL_CATEGORIES.breads && !data[data.activeTabModal].length) dispatch(getData(ALL_CATEGORIES.breads))
+            if (data.activeTabModal === ALL_CATEGORIES.vegetables && !data[data.activeTabModal].length) dispatch(getData(ALL_CATEGORIES.vegetables))
+            if (data.activeTabModal === ALL_CATEGORIES.sauces && !data[data.activeTabModal].length) dispatch(getData(ALL_CATEGORIES.sauces))
+            if (data.activeTabModal === ALL_CATEGORIES.fillings && !data[data.activeTabModal].length) dispatch(getData(ALL_CATEGORIES.fillings))
         }
     }, [data.activeTabModal, data.openModal])
 

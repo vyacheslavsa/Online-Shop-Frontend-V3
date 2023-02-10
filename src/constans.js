@@ -6,6 +6,7 @@ export const ALL_CATEGORIES = {
     sauces: "sauces",
     sizes: "sizes",
     vegetables: "vegetables",
+    products: "products",
     done: "done"
 };
 

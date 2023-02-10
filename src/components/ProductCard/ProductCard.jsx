@@ -2,14 +2,14 @@ import React from 'react';
 import './ProductCard.css'
 import Button from "../Button/Button";
 import {useDispatch, useSelector} from "react-redux";
-import {setCustomSandwich, setMenu, setOpenModal, setShoppingCart} from "../../features/rootSlice";
+import {setCustomSandwich, setProducts, setOpenModal, setShoppingCart} from "../../features/rootSlice";
 import CountBoard from "../CountBoard/CountBoard";
 import cs from 'classnames'
 
 const {v4: uuidv4} = require('uuid');
 
 const ProductCard = ({info, variant = "menu", onClick}) => {
-    const {shoppingCart, customSandwich, menu} = useSelector(state => state.data)
+    const {shoppingCart, customSandwich, products} = useSelector(state => state.data)
 
     const dispatch = useDispatch()
     const getLinkLogo = (currentCategory) => {
@@ -59,13 +59,13 @@ const ProductCard = ({info, variant = "menu", onClick}) => {
     const selectedIngredient = (id) => customSandwich.allIdIngredients.find(item => item === id)
 
     const changeCount = (id, event) => {
-        const copyMenu = [...menu]
-        const resultSearch = copyMenu.find(item => item._id === id)
-        const indexElement = copyMenu.findIndex(item => item._id === resultSearch._id)
+        const copyProducts = [...products]
+        const resultSearch = copyProducts.find(item => item._id === id)
+        const indexElement = copyProducts.findIndex(item => item._id === resultSearch._id)
         const copyResult = {...resultSearch}
         event === 'inc' ? copyResult.count++ : copyResult.count>1 && copyResult.count--
-        copyMenu[indexElement] = copyResult
-        dispatch(setMenu(copyMenu))
+        copyProducts[indexElement] = copyResult
+        dispatch(setMenu(copyProducts))
     }
 
     return (

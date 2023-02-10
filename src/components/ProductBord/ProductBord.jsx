@@ -5,12 +5,12 @@ import Loading from "../Loading/Loading"
 import ProductCard from "../ProductCard/ProductCard";
 
 const ProductBord = () => {
-    const {menu, loadings, activeTabProducts} = useSelector(state => state.data);
-    const filteredData = menu.filter(item => item.category === activeTabProducts);
+    const {products, loadings, activeTabProducts} = useSelector(state => state.data);
+    const filteredData = products.filter(item => item.category === activeTabProducts);
 
     return (
-        <main className={loadings.menuLoading ? "loading_board" : "products_board"}>
-            {loadings.menuLoading ? <Loading/> : filteredData.map(card => <ProductCard info={card} key={card._id}/>)}
+        <main className={loadings.productsLoading ? "loading_board" : "products_board"}>
+            {loadings.productsLoading ? <Loading/> : filteredData.map(card => <ProductCard info={card} key={card._id}/>)}
         </main>
     )
 }

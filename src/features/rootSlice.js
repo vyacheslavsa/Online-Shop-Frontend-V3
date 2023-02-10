@@ -1,8 +1,8 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {getMenu, getBreads, getFillings, getMarkets, getSauces, getSizes, getVegetables} from '../api/index'
+import {getData} from '../api/index'
 
 const initialState = {
-    menu: [],
+    products: [],
     fillings: [],
     breads: [],
     vegetables: [],
@@ -10,7 +10,7 @@ const initialState = {
     sizes: [],
     markets: [],
     loadings: {
-        menuLoading: false,
+        productsLoading: false,
         fillingsLoading: false,
         breadsLoading: false,
         vegetablesLoading: false,
@@ -45,118 +45,31 @@ const rootSlice = createSlice({
         setShoppingCart: (state, action) => {
             state.shoppingCart = action.payload
         },
-        setMenu: (state, action) => {
-            state.menu = action.payload
+        setProducts: (state, action) => {
+            state.products = action.payload
         }
     },
     extraReducers: {
-        // getMenu
-        [getMenu.pending]: (state) => {
-            state.loadings.menuLoading = true;
-        },
-        [getMenu.fulfilled]: (state, action) => {
-            state.loadings.menuLoading = false;
-            state.menu = action.payload;
-        },
-        [getMenu.rejected]: (state, action) => {
-            state.errors.push({
-                type: action.type,
-                error: action.payload,
-            });
-        },
 
-        // getFillings
-        [getFillings.pending]: (state) => {
-            state.loadings.fillingsLoading = true;
+        // getData
+        [getData.pending]: (state, action) => {
+            state.loadings[`${action.meta.arg}Loading`] = true;
+            
         },
-        [getFillings.fulfilled]: (state, action) => {
+        [getData.fulfilled]: (state, action) => {
 
-            state.loadings.fillingsLoading = false;
-            state.fillings = action.payload;
+            state.loadings[`${action.meta.arg}Loading`] = false;
+            state[action.meta.arg] = action.payload;
+           
         },
-        [getFillings.rejected]: (state, action) => {
+        [getData.rejected]: (state, action) => {
             state.errors.push({
-                type: action.type,
-                error: action.payload,
-            });
-        },
-
-        //getMarkets
-        [getMarkets.pending]: (state) => {
-            state.loadings.marketsLoading = true;
-        },
-        [getMarkets.fulfilled]: (state, action) => {
-            state.loadings.marketsLoading = false;
-            state.markets = action.payload;
-        },
-        [getMarkets.rejected]: (state, action) => {
-            state.errors.push({
-                type: action.type,
-                error: action.payload,
-            });
-        },
-
-        //getBreads
-        [getBreads.pending]: (state) => {
-            state.loadings.breadsLoading = true;
-        },
-        [getBreads.fulfilled]: (state, action) => {
-            state.loadings.breadsLoading = false;
-            state.breads = action.payload;
-        },
-        [getBreads.rejected]: (state, action) => {
-            state.errors.push({
-                type: action.type,
-                error: action.payload,
-            });
-        },
-
-        //getSauces
-        [getSauces.pending]: (state) => {
-            state.loadings.saucesLoading = true;
-        },
-        [getSauces.fulfilled]: (state, action) => {
-            state.loadings.saucesLoading = false;
-            state.sauces = action.payload;
-        },
-        [getSauces.rejected]: (state, action) => {
-            state.errors.push({
-                type: action.type,
-                error: action.payload,
-            });
-        },
-
-        //getVegetables
-        [getVegetables.pending]: (state) => {
-            state.loadings.vegetablesLoading = true;
-        },
-        [getVegetables.fulfilled]: (state, action) => {
-            state.loadings.vegetablesLoading = false;
-            state.vegetables = action.payload;
-        },
-        [getVegetables.rejected]: (state, action) => {
-            state.errors.push({
-                type: action.type,
-                error: action.payload,
-            });
-        },
-
-        //getSizes
-        [getSizes.pending]: (state) => {
-            state.loadings.sizesLoading = true;
-        },
-        [getSizes.fulfilled]: (state, action) => {
-            state.loadings.sizesLoading = false;
-            state.sizes = action.payload;
-        },
-        [getSizes.rejected]: (state, action) => {
-            state.errors.push({
-                type: action.type,
+                type: action.meta.arg,
                 error: action.payload,
             });
         },
     },
 });
 
-export const {setTabProducts, setTabModal, setOpenModal, setCustomSandwich, setShoppingCart, setMenu} = rootSlice.actions;
+export const {setTabProducts, setTabModal, setOpenModal, setCustomSandwich, setShoppingCart, setProducts} = rootSlice.actions;
 export default rootSlice.reducer;
