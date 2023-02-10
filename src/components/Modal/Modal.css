@@ -1,30 +1,3 @@
-Skip to content
-Product
-Solutions
-Open Source
-Pricing
-Search
-Sign in
-Sign up
-vyacheslavsa
-/
-Online-Shop-Frontend-V2
-Public
-Code
-Issues
-Pull requests
-Actions
-Projects
-Security
-Insights
-Online-Shop-Frontend-V2/src/components/Modal/Modal.css
-@vyacheslavsa
-vyacheslavsa fix styles
-Latest commit 0d66dc0 last week
- History
- 1 contributor
-232 lines (195 sloc)  4.08 KB
-
 .modal_bg {
     display: none;
 }
