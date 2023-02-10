@@ -65,7 +65,7 @@ const ProductCard = ({info, variant = "menu", onClick}) => {
         const copyResult = {...resultSearch}
         event === 'inc' ? copyResult.count++ : copyResult.count>1 && copyResult.count--
         copyProducts[indexElement] = copyResult
-        dispatch(setMenu(copyProducts))
+        dispatch(setProducts(copyProducts))
     }
 
     return (
