@@ -17,7 +17,7 @@ const Modal = () => {
 
     useEffect(() => {
         if (data.openModal) {
-            if (data.activeTabModal === ALL_CATEGORIES.sauces && !data[data.activeTabModal].length) dispatch(getData(ALL_CATEGORIES.sizes))
+            if (data.activeTabModal === ALL_CATEGORIES.sizes && !data[data.activeTabModal].length) dispatch(getData(ALL_CATEGORIES.sizes))
             if (data.activeTabModal === ALL_CATEGORIES.breads && !data[data.activeTabModal].length) dispatch(getData(ALL_CATEGORIES.breads))
             if (data.activeTabModal === ALL_CATEGORIES.vegetables && !data[data.activeTabModal].length) dispatch(getData(ALL_CATEGORIES.vegetables))
             if (data.activeTabModal === ALL_CATEGORIES.sauces && !data[data.activeTabModal].length) dispatch(getData(ALL_CATEGORIES.sauces))
