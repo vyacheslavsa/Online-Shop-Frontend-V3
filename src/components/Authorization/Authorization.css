@@ -1,0 +1,31 @@
+.authorization {
+    height: 100vh;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.authorization__content {
+    display: flex;
+    flex-direction: column;
+}
+
+.authorization__content > div {
+    margin-bottom: 20px;
+}
+
+.authorization__btn {
+    display: flex;
+    flex-direction: column;
+}
+
+.authorization__btn>button {
+    margin-bottom: 20px;
+}
+
+.authorization__button_back {
+    position: absolute;
+    left: 20px;
+    top: 20px;
+}

@@ -16,6 +16,8 @@ module.exports = {
     devServer: {
         port: 3000,
         devMiddleware: { writeToDisk: true },
+        static: './',
+        historyApiFallback: true,
     },
     plugins: [
         new HTMLWebpackPlugin({
