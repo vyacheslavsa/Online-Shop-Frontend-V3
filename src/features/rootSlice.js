@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {getProducts, getAdditives} from '../api/index'
+import {getProducts, getAdditives, login} from '../api/index'
 
 const initialState = {
     products: [],
@@ -83,6 +83,19 @@ const rootSlice = createSlice({
                 type: action.meta.arg,
                 error: action.payload,
             });
+        },
+
+        //login
+        [login.pending]: (state, action) => {
+            console.log('login.pending')
+
+        },
+        [login.fulfilled]: (state, action) => {
+            console.log('login.fulfilled')
+
+        },
+        [login.rejected]: (state, action) => {
+            console.log('login.rejected')
         },
     },
 });
