@@ -8,7 +8,7 @@ import Loading from "../Loading/Loading";
 import ProductCard from "../ProductCard/ProductCard";
 import CountBoard from "../CountBoard/CountBoard";
 import Button from "../Button/Button";
-import { getData } from '../../api';
+import { getAdditives } from '../../api';
 
 const Modal = () => {
     const dispatch = useDispatch();
@@ -17,11 +17,11 @@ const Modal = () => {
 
     useEffect(() => {
         if (data.openModal) {
-            if (data.activeTabModal === ALL_CATEGORIES.sizes && !data[data.activeTabModal].length) dispatch(getData(ALL_CATEGORIES.sizes))
-            if (data.activeTabModal === ALL_CATEGORIES.breads && !data[data.activeTabModal].length) dispatch(getData(ALL_CATEGORIES.breads))
-            if (data.activeTabModal === ALL_CATEGORIES.vegetables && !data[data.activeTabModal].length) dispatch(getData(ALL_CATEGORIES.vegetables))
-            if (data.activeTabModal === ALL_CATEGORIES.sauces && !data[data.activeTabModal].length) dispatch(getData(ALL_CATEGORIES.sauces))
-            if (data.activeTabModal === ALL_CATEGORIES.fillings && !data[data.activeTabModal].length) dispatch(getData(ALL_CATEGORIES.fillings))
+            if (data.activeTabModal === ALL_CATEGORIES.sizes && !data[data.activeTabModal].length) dispatch(getAdditives(ALL_CATEGORIES.sizes))
+            if (data.activeTabModal === ALL_CATEGORIES.breads && !data[data.activeTabModal].length) dispatch(getAdditives(ALL_CATEGORIES.breads))
+            if (data.activeTabModal === ALL_CATEGORIES.vegetables && !data[data.activeTabModal].length) dispatch(getAdditives(ALL_CATEGORIES.vegetables))
+            if (data.activeTabModal === ALL_CATEGORIES.sauces && !data[data.activeTabModal].length) dispatch(getAdditives(ALL_CATEGORIES.sauces))
+            if (data.activeTabModal === ALL_CATEGORIES.fillings && !data[data.activeTabModal].length) dispatch(getAdditives(ALL_CATEGORIES.fillings))
         }
     }, [data.activeTabModal, data.openModal])
 

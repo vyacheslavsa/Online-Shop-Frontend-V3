@@ -1,18 +1,31 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import ProductsService from "../services/ProductsService";
+import AdditivesService from "../services/AdditivesService";
 
-const BASE_URL = process.env.REACT_APP_BASEURL;
 
-const getData = createAsyncThunk("getData", async (path, { rejectWithValue }) => {
-  const url = path === "products" ? `${BASE_URL}/products` : `${BASE_URL}/additives?category=${path}`
+const getProducts = createAsyncThunk("getProducts", async ( { rejectWithValue }) => {
   try {
-    const response = await fetch(url);
+    const response = await ProductsService.getProducts();
     if (response.status !== 200) {
       throw new Error(response.statusText);
     }
-    return await response.json();
+
+    return await response.data;
   } catch (error) {
     return rejectWithValue(error.message);
   }
 });
 
-export { getData };
+const getAdditives = createAsyncThunk("getAdditives", async (path, { rejectWithValue }) => {
+  try {
+    const response = await AdditivesService.getAdditives(path);
+    if (response.status !== 200) {
+      throw new Error(response.statusText);
+    }
+    return await response.data;
+  } catch (error) {
+    return rejectWithValue(error.message);
+  }
+});
+
+export { getProducts,getAdditives };

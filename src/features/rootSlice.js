@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {getData} from '../api/index'
+import {getProducts, getAdditives} from '../api/index'
 
 const initialState = {
     products: [],
@@ -51,18 +51,34 @@ const rootSlice = createSlice({
     },
     extraReducers: {
 
-        // getData
-        [getData.pending]: (state, action) => {
+        // getProducts
+        [getProducts.pending]: (state, action) => {
             state.loadings[`${action.meta.arg}Loading`] = true;
             
         },
-        [getData.fulfilled]: (state, action) => {
-
+        [getProducts.fulfilled]: (state, action) => {
             state.loadings[`${action.meta.arg}Loading`] = false;
             state[action.meta.arg] = action.payload;
            
         },
-        [getData.rejected]: (state, action) => {
+        [getProducts.rejected]: (state, action) => {
+            state.errors.push({
+                type: action.meta.arg,
+                error: action.payload,
+            });
+        },
+
+        // getAdditives
+        [getAdditives.pending]: (state, action) => {
+            state.loadings[`${action.meta.arg}Loading`] = true;
+
+        },
+        [getAdditives.fulfilled]: (state, action) => {
+            state.loadings[`${action.meta.arg}Loading`] = false;
+            state[action.meta.arg] = action.payload;
+
+        },
+        [getAdditives.rejected]: (state, action) => {
             state.errors.push({
                 type: action.meta.arg,
                 error: action.payload,

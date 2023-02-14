@@ -1,7 +1,4 @@
-import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { getData } from "../api";
-import { ALL_CATEGORIES } from "../constans";
+import React from "react";
 import MainLayout from "./MainLayout/MainLayout";
 import ProductBord from "./ProductBord/ProductBord";
 import {Navigate, Route, Routes} from "react-router-dom";

@@ -3,7 +3,7 @@ import './ProductBord.css'
 import {useDispatch, useSelector} from "react-redux";
 import Loading from "../Loading/Loading"
 import ProductCard from "../ProductCard/ProductCard";
-import {getData} from "../../api";
+import {getProducts} from "../../api";
 import {ALL_CATEGORIES} from "../../constans";
 
 const ProductBord = () => {
@@ -13,7 +13,7 @@ const ProductBord = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getData(ALL_CATEGORIES.products));
+        dispatch(getProducts(ALL_CATEGORIES.products));
     }, [dispatch]);
 
     return (
