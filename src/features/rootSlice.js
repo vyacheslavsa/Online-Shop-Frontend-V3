@@ -1,7 +1,12 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {getProducts, getAdditives, login} from '../api/index'
+import {getProducts, getAdditives, login, registration, logout, checkAuth} from '../api/index'
 
 const initialState = {
+    auth: {
+        isAuth: false,
+        user: {},
+        token: {}
+    },
     products: [],
     fillings: [],
     breads: [],
@@ -87,16 +92,76 @@ const rootSlice = createSlice({
 
         //login
         [login.pending]: (state, action) => {
-            console.log('login.pending')
+
 
         },
         [login.fulfilled]: (state, action) => {
-            console.log('login.fulfilled')
-
+            state.auth.user.login = action.payload.user.login
+            state.auth.user.id = action.payload.user.id
+            state.auth.token.access = action.payload.accessToken
+            state.auth.token.refresh = action.payload.refreshToken
+            localStorage.setItem('token',action.payload.accessToken)
+            state.auth.isAuth = true
         },
         [login.rejected]: (state, action) => {
             console.log('login.rejected')
         },
+
+
+
+
+
+        //registration
+        [registration.pending]: (state, action) => {
+
+
+        },
+        [registration.fulfilled]: (state, action) => {
+            state.auth.user.login = action.payload.user.login
+            state.auth.user.id = action.payload.user.id
+            state.auth.token.access = action.payload.accessToken
+            state.auth.token.refresh = action.payload.refreshToken
+            localStorage.setItem('token',action.payload.accessToken)
+            state.auth.isAuth = true
+        },
+        [registration.rejected]: (state, action) => {
+            console.log('registration.rejected')
+        },
+
+
+
+        //logOut
+        [logout.pending]: (state, action) => {
+            console.log('logout.pending')
+        },
+        [logout.fulfilled]: (state, action) => {
+            console.log('logout.fulfilled')
+            // console.log(action.payload.accessToken, 'logOut.fulfilled')
+            // localStorage.removeItem('token', action.payload.accessToken)
+            // state.auth.isAuth = false
+            // state.auth.user = {}
+            // state.auth.token = {}
+        },
+        [logout.rejected]: (state, action) => {
+            console.log('logout.rejected')
+        },
+
+
+        // //checkAuth
+        // [checkAuth.pending]: (state, action) => {
+        // },
+        // [checkAuth.fulfilled]: (state, action) => {
+        //     console.log('logOut.rejected')
+        //     // state.auth.user.login = action.payload.user.login
+        //     // state.auth.user.id = action.payload.user.id
+        //     // state.auth.token.access = action.payload.accessToken
+        //     // state.auth.token.refresh = action.payload.refreshToken
+        //     // localStorage.setItem('token',action.payload.accessToken)
+        //     // state.auth.isAuth = true
+        // },
+        // [checkAuth.rejected]: (state, action) => {
+        //     console.log('logOut.rejected')
+        // },
     },
 });
 
