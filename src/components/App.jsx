@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import MainLayout from "./MainLayout/MainLayout";
 import ProductBord from "./ProductBord/ProductBord";
 import {Navigate, Route, Routes} from "react-router-dom";

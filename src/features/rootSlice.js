@@ -132,10 +132,10 @@ const rootSlice = createSlice({
 
         //logOut
         [logout.pending]: (state, action) => {
-            console.log('logout.pending')
+            console.warn('logout.pending')
         },
         [logout.fulfilled]: (state, action) => {
-            console.log('logout.fulfilled')
+            console.warn('logout.fulfilled')
             // console.log(action.payload.accessToken, 'logOut.fulfilled')
             // localStorage.removeItem('token', action.payload.accessToken)
             // state.auth.isAuth = false

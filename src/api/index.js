@@ -4,7 +4,7 @@ import AdditivesService from "../services/AdditivesService";
 import AuthService from "../services/AuthService";
 import axios from "axios";
 
-const getProducts = createAsyncThunk("getProducts", async ({rejectWithValue}) => {
+const getProducts = createAsyncThunk("getProducts", async (_,{rejectWithValue}) => {
     try {
         const response = await ProductsService.getProducts();
         if (response.status !== 200) {
@@ -56,21 +56,20 @@ const registration = createAsyncThunk('registration', async (user, {rejectWithVa
     }
 })
 
-const logout = createAsyncThunk("logout", async ({rejectWithValue}) => {
+const logout = createAsyncThunk('logout', async (_, { rejectWithValue }) => {
     try {
         const response = await AuthService.logout();
-        console.log(response, 'response')
         if (response.status !== 200) {
             throw new Error(response.statusText);
         }
-        return await response.data;
+        return response.data;
     } catch (error) {
         return rejectWithValue(error.message);
     }
-})
+});
 
 
-const checkAuth = createAsyncThunk('checkAuth', async ({rejectWithValue}) => {
+const checkAuth = createAsyncThunk('checkAuth', async (_,{rejectWithValue}) => {
     const BASE_URL = process.env.REACT_APP_BASEURL
     try {
         const response = await axios.get(`${BASE_URL}/refresh`, {withCredentials: true});
