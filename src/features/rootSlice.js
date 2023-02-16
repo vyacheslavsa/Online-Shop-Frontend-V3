@@ -60,14 +60,15 @@ const rootSlice = createSlice({
       state.loadings[`${action.meta.arg}Loading`] = true;
     },
     [getProducts.fulfilled]: (state, action) => {
-      state.loadings[`${action.meta.arg}Loading`] = false;
       state[action.meta.arg] = action.payload;
+      state.loadings[`${action.meta.arg}Loading`] = false;
     },
     [getProducts.rejected]: (state, action) => {
       state.errors.push({
         type: action.meta.arg,
         error: action.payload,
       });
+      state.loadings[`${action.meta.arg}Loading`] = false;
     },
 
     // getAdditives
@@ -75,14 +76,15 @@ const rootSlice = createSlice({
       state.loadings[`${action.meta.arg}Loading`] = true;
     },
     [getAdditives.fulfilled]: (state, action) => {
-      state.loadings[`${action.meta.arg}Loading`] = false;
       state[action.meta.arg] = action.payload;
+      state.loadings[`${action.meta.arg}Loading`] = false;
     },
     [getAdditives.rejected]: (state, action) => {
       state.errors.push({
         type: action.meta.arg,
         error: action.payload,
       });
+      state.loadings[`${action.meta.arg}Loading`] = false;
     },
 
     //login
@@ -90,16 +92,20 @@ const rootSlice = createSlice({
         state.loadings.authLoading = true
     },
     [login.fulfilled]: (state, action) => {
-      state.loadings.authLoading = false
       state.auth.user.login = action.payload.user.login;
       state.auth.user.id = action.payload.user.id;
       state.auth.token.access = action.payload.accessToken;
       state.auth.token.refresh = action.payload.refreshToken;
       localStorage.setItem("token", action.payload.accessToken);
       state.auth.isAuth = true;
+      state.loadings.authLoading = false
     },
     [login.rejected]: (state, action) => {
-      console.log("login.rejected");
+        state.errors.push({
+            type: action.meta.arg,
+            error: action.payload,
+          });
+        state.loadings.authLoading = false
     },
 
     //registration
@@ -107,30 +113,45 @@ const rootSlice = createSlice({
         state.loadings.authLoading = true
     },
     [registration.fulfilled]: (state, action) => {
-      state.loadings.authLoading = false
       state.auth.user.login = action.payload.user.login;
       state.auth.user.id = action.payload.user.id;
       state.auth.token.access = action.payload.accessToken;
       state.auth.token.refresh = action.payload.refreshToken;
       localStorage.setItem("token", action.payload.accessToken);
       state.auth.isAuth = true;
+      state.loadings.authLoading = false
     },
     [registration.rejected]: (state, action) => {
-      console.log("registration.rejected");
+        state.loadings.authLoading = false
+        state.errors.push({
+            type: action.meta.arg,
+            error: action.payload,
+          });
     },
 
     //logOut
+    [logout.pending]: (state) => {
+        state.loadings.authLoading = true
+    },
     [logout.fulfilled]: (state, action) => {
       localStorage.removeItem('token', action.payload.accessToken)
       state.auth.isAuth = false
       state.auth.user = {}
       state.auth.token = {}
+      state.loadings.authLoading = false
     },
-    [logout.rejected]: (state, action) => {
-      
+    [logout.rejected]: (state) => {
+        state.errors.push({
+            type: action.meta.arg,
+            error: action.payload,
+          });
+        state.loadings.authLoading = false
     },
 
     //checkAuth
+    [checkAuth.pending]: (state) => {
+        state.loadings.authLoading = true
+    },
     [checkAuth.fulfilled]: (state, action) => {
         state.auth.user.login = action.payload.user.login
         state.auth.user.id = action.payload.user.id
@@ -138,9 +159,14 @@ const rootSlice = createSlice({
         state.auth.token.refresh = action.payload.refreshToken
         localStorage.setItem('token',action.payload.accessToken)
         state.auth.isAuth = true
+        state.loadings.authLoading = false
     },
     [checkAuth.rejected]: (state, action) => {
-        console.log('checkAuth.rejected')
+        state.errors.push({
+            type: action.meta.arg,
+            error: action.payload,
+          });
+        state.loadings.authLoading = false
     },
   },
 });

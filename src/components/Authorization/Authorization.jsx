@@ -4,6 +4,7 @@ import {NavLink, useNavigate, useLocation} from "react-router-dom";
 import Button from "../Button/Button";
 import {useDispatch, useSelector} from "react-redux";
 import { login, registration, logout} from "../../api";
+import Loading from '../Loading/Loading';
 
 const Authorization = () => {
     const location = useLocation()
@@ -27,18 +28,24 @@ const Authorization = () => {
 
     const isAuth = useSelector(state => state.data.auth.isAuth)
 
+    const isloading = useSelector(state => state.data.loadings.authLoading)
+
+
     useEffect(() => {
         if(!isAuth)return
         navigate('/products')
     }, [isAuth]);
 
+
+
     return (
+
+        !isloading && 
         <div className="authorization">
             <div className="authorization__button_back">
                 <NavLink to={'/products'}>
                     <Button>Вернуться</Button>
                 </NavLink>
-                <Button onClick={()=>dispatch(logout())}>Выйти</Button>
             </div>
             <div className="authorization__content">
                 <div>{isLogin ? 'Login' : 'Registration'}</div>
