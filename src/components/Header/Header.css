@@ -11,3 +11,12 @@ header h1 {
 .header__navbar>a:first-child {
     margin-right: 20px;
 }
+
+.header__auth {
+    display: flex;
+    align-items: center;
+}
+
+.header__auth>:first-child {
+    margin-right: 10px;
+}

@@ -51,7 +51,6 @@ const registration = createAsyncThunk('registration', async (user, {rejectWithVa
         }
         return await response.data;
     } catch (error) {
-        console.log(error)
         return rejectWithValue(error.message);
     }
 })

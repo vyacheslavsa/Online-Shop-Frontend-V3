@@ -5,6 +5,7 @@ import Loading from "../Loading/Loading"
 import ProductCard from "../ProductCard/ProductCard";
 import {getProducts} from "../../api";
 import {ALL_CATEGORIES} from "../../constans";
+import { checkAuth } from '../../api';
 
 const ProductBord = () => {
     const {products, loadings, activeTabProducts} = useSelector(state => state.data);

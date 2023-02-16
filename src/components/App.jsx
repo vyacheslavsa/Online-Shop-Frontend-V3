@@ -3,18 +3,18 @@ import MainLayout from "./MainLayout/MainLayout";
 import ProductBord from "./ProductBord/ProductBord";
 import {Navigate, Route, Routes} from "react-router-dom";
 import Authorization from "./Authorization/Authorization";
+import { useDispatch } from "react-redux";
+import { checkAuth } from "../api";
 
 
 const App = () => {
+    const dispatch = useDispatch()
 
-    // const dispatch = useDispatch()
-    // useEffect(()=>{
-    //     console.log(localStorage.getItem('token'))
-    //     if(!localStorage.getItem('token')){
-    //
-    //         dispatch(checkAuth())
-    //     }
-    // },[])
+    useEffect(()=>{
+        if(localStorage.getItem('token')){
+            dispatch(checkAuth())
+        }
+    },[])
 
     return(
         <Routes>

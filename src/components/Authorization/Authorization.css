@@ -29,3 +29,7 @@
     left: 20px;
     top: 20px;
 }
+
+.authorization__button_back >:first-child{
+    margin-right: 20px;
+}

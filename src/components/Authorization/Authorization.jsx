@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import './Authorization.css'
-import {NavLink, useLocation} from "react-router-dom";
+import {NavLink, useNavigate, useLocation} from "react-router-dom";
 import Button from "../Button/Button";
 import {useDispatch, useSelector} from "react-redux";
 import { login, registration, logout} from "../../api";
@@ -12,20 +12,25 @@ const Authorization = () => {
 
     const [loginField, setLoginField] = useState('')
     const [passwordField, setPasswordField] = useState('')
+    const navigate = useNavigate();
+
 
     const loginUser = () => {
         dispatch(login({loginField, passwordField}))
+    
+        
     }
 
     const registrationUser = () => {
         dispatch(registration({loginField, passwordField}))
     }
 
-    const logOutUser = () => {
-        dispatch(logout())
-    }
-
     const isAuth = useSelector(state => state.data.auth.isAuth)
+
+    useEffect(() => {
+        if(!isAuth)return
+        navigate('/products')
+    }, [isAuth]);
 
     return (
         <div className="authorization">
@@ -33,7 +38,7 @@ const Authorization = () => {
                 <NavLink to={'/products'}>
                     <Button>Вернуться</Button>
                 </NavLink>
-                <Button onClick={logOutUser}>Выйти</Button>
+                <Button onClick={()=>dispatch(logout())}>Выйти</Button>
             </div>
             <div className="authorization__content">
                 <div>{isLogin ? 'Login' : 'Registration'}</div>
@@ -51,7 +56,6 @@ const Authorization = () => {
                         {isLogin ? 'Зарегистрироваться' : 'Войти'}
                     </NavLink>
                 </div>
-                <div>{isAuth ? 'АВТОРИЗИРОВАН' : "НЕ АВТОРИЗИРОВАН"}</div>
             </div>
         </div>
     );
