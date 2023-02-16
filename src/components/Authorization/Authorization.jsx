@@ -27,16 +27,13 @@ const Authorization = () => {
     }
 
     const isAuth = useSelector(state => state.data.auth.isAuth)
-
     const isloading = useSelector(state => state.data.loadings.authLoading)
-
+    const errors = useSelector(state => state.data.errors)
 
     useEffect(() => {
         if(!isAuth)return
         navigate('/products')
     }, [isAuth]);
-
-
 
     return (
 
@@ -64,6 +61,8 @@ const Authorization = () => {
                     </NavLink>
                 </div>
             </div>
+            <div style={{color: 'red'}}>{!!errors.length && errors[0].message}</div>
+            <div style={{color: 'red'}}>{!!errors.length && !!errors[0].validationErrors.length && errors[0].validationErrors[0].msg}</div>
         </div>
     );
 };

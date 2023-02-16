@@ -8,7 +8,7 @@ import cs from 'classnames'
 
 const SideBar = () => {
     const dispatch = useDispatch()
-    const {activeTabProducts} = useSelector(state => state.data);
+    const activeTabProducts = useSelector(state => state.data.activeTabProducts);
     return (
         <aside className="side_bar">
             {TAB_CATEGORIES.map((tab, idx) =>

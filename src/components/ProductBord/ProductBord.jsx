@@ -5,21 +5,22 @@ import Loading from "../Loading/Loading"
 import ProductCard from "../ProductCard/ProductCard";
 import {getProducts} from "../../api";
 import {ALL_CATEGORIES} from "../../constans";
-import { checkAuth } from '../../api';
 
 const ProductBord = () => {
-    const {products, loadings, activeTabProducts} = useSelector(state => state.data);
+    const products = useSelector(state => state.data.products);
+    const productsLoading = useSelector(state => state.data.loadings.productsLoading);
+    const activeTabProducts = useSelector(state => state.data.activeTabProducts);
     const filteredData = products.filter(item => item.category === activeTabProducts);
 
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(getProducts(ALL_CATEGORIES.products));
-    }, [dispatch]);
+    }, []);
 
     return (
-        <main className={loadings.productsLoading ? "loading_board" : "products_board"}>
-            {loadings.productsLoading ? <Loading/> : filteredData.map(card => <ProductCard info={card} key={card._id}/>)}
+        <main className={productsLoading ? "loading_board" : "products_board"}>
+            {productsLoading ? <Loading/> : filteredData.map(card => <ProductCard info={card} key={card._id}/>)}
         </main>
     )
 }

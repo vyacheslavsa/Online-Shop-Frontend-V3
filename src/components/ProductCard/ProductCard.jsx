@@ -8,8 +8,9 @@ import cs from 'classnames'
 
 const {v4: uuidv4} = require('uuid');
 
-const ProductCard = ({info, variant = "menu", onClick}) => {
-    const {shoppingCart, customSandwich, products} = useSelector(state => state.data)
+const ProductCard = ({info}) => {
+    const shoppingCart = useSelector(state => state.data.shoppingCart)
+    const products = useSelector(state => state.data.products)
 
     const dispatch = useDispatch()
     const getLinkLogo = (currentCategory) => {
@@ -56,8 +57,6 @@ const ProductCard = ({info, variant = "menu", onClick}) => {
         }
     }
 
-    const selectedIngredient = (id) => customSandwich.allIdIngredients.find(item => item === id)
-
     const changeCount = (id, event) => {
         const copyProducts = [...products]
         const resultSearch = copyProducts.find(item => item._id === id)
@@ -69,8 +68,7 @@ const ProductCard = ({info, variant = "menu", onClick}) => {
     }
 
     return (
-        <>
-            {variant === "menu" ?
+
                 <article className="product_card" id={info._id}>
                     {info.market &&
                         <div className="product_card__logo__show">
@@ -92,22 +90,8 @@ const ProductCard = ({info, variant = "menu", onClick}) => {
                         {isSandwiches ? "СОБРАТЬ" : "В КОРЗИНУ"}
                     </Button>
                 </article>
-                :
-                <div
-                    className={cs("modal_window__card", {["selected_ingredient"]: customSandwich.hasOwnProperty('allIdIngredients') && selectedIngredient(info._id)})}
-                    id={info._id}
-                    onClick={() => onClick(info)}
-                >
-                    <div className="product_card__image modal_image">
-                        <img src={info.image} alt="no_image"/>
-                    </div>
-                    <div className="modal_window__description">
-                        <p className="modal_window__text">{info.name}</p>
-                        <p className="modal_window__price">Цена: {info.price} руб.</p>
-                    </div>
-                </div>
-            }
-        </>
+            
+
     );
 };
 

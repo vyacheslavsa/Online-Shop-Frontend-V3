@@ -5,14 +5,18 @@ import {useDispatch, useSelector} from "react-redux";
 import {setCustomSandwich, setOpenModal, setShoppingCart, setTabModal} from "../../features/rootSlice";
 import {ALL_CATEGORIES, CATEGORY, MODAL_TAB_TEXT, TABS_MODAL} from "../../constans";
 import Loading from "../Loading/Loading";
-import ProductCard from "../ProductCard/ProductCard";
 import CountBoard from "../CountBoard/CountBoard";
 import Button from "../Button/Button";
 import { getAdditives } from '../../api';
+import CardModal from '../../CardModal/CardModal';
 
 const Modal = () => {
     const dispatch = useDispatch();
-    const {customSandwich, activeTabModal, openModal, shoppingCart} = useSelector(state => state.data)
+    const customSandwich = useSelector(state => state.data.customSandwich)
+    const activeTabModal = useSelector(state => state.data.activeTabModal)
+    const openModal = useSelector(state => state.data.openModal)
+    const shoppingCart = useSelector(state => state.data.shoppingCart)
+
     const data = useSelector(state => state.data)
 
     useEffect(() => {
@@ -143,7 +147,7 @@ const Modal = () => {
                                 <Loading/>
                                 :
                                 data.activeTabModal !== ALL_CATEGORIES.done ?
-                                    data[data.activeTabModal].map((item, idx) => <ProductCard variant={"modalCard"} info={item} key={idx} onClick={addFilling}/>)
+                                    data[data.activeTabModal].map((item, idx) => <CardModal info={item} key={idx} onClick={addFilling}/>)
                                     :
                                     <>
                                         <div className="modal_window__leftContent">

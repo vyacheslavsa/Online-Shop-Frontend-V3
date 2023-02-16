@@ -10,10 +10,13 @@ const getProducts = createAsyncThunk("getProducts", async (_,{rejectWithValue}) 
         if (response.status !== 200) {
             throw new Error(response.statusText);
         }
-
         return await response.data;
     } catch (error) {
-        return rejectWithValue(error.message);
+      return rejectWithValue({
+        message:error.response.data.message,
+        validationErrors: error.response.data.errors,
+        status: error.response.status
+       });
     }
 });
 
@@ -25,7 +28,11 @@ const getAdditives = createAsyncThunk("getAdditives", async (path, {rejectWithVa
         }
         return await response.data;
     } catch (error) {
-        return rejectWithValue(error.message);
+      return rejectWithValue({
+        message:error.response.data.message,
+        validationErrors: error.response.data.errors,
+        status: error.response.status
+       });
     }
 });
 
@@ -38,7 +45,11 @@ const login = createAsyncThunk('login', async (user, {rejectWithValue}) => {
         }
         return await response.data;
     } catch (error) {
-        return rejectWithValue(error.message);
+      return rejectWithValue({
+        message:error.response.data.message,
+        validationErrors: error.response.data.errors,
+        status: error.response.status
+       });
     }
 })
 
@@ -51,7 +62,11 @@ const registration = createAsyncThunk('registration', async (user, {rejectWithVa
         }
         return await response.data;
     } catch (error) {
-        return rejectWithValue(error.message);
+      return rejectWithValue({
+        message:error.response.data.message,
+        validationErrors: error.response.data.errors,
+        status: error.response.status
+       });
     }
 })
 
@@ -63,7 +78,11 @@ const logout = createAsyncThunk('logout', async (_, { rejectWithValue }) => {
         }
         return response.data;
     } catch (error) {
-        return rejectWithValue(error.message);
+      return rejectWithValue({
+        message:error.response.data.message,
+        validationErrors: error.response.data.errors,
+        status: error.response.status
+       });
     }
 });
 
@@ -77,7 +96,11 @@ const checkAuth = createAsyncThunk('checkAuth', async (_,{rejectWithValue}) => {
         }
         return await response.data;
     } catch (error) {
-        return rejectWithValue(error.message);
+      return rejectWithValue({
+        message:error.response.data.message,
+        validationErrors: error.response.data.errors,
+        status: error.response.status
+       });
     }
 })
 

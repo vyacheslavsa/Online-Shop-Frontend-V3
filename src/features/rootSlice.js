@@ -5,7 +5,6 @@ const initialState = {
   auth: {
     isAuth: false,
     user: {},
-    token: {},
   },
   products: [],
   fillings: [],
@@ -57,6 +56,7 @@ const rootSlice = createSlice({
   extraReducers: {
     // getProducts
     [getProducts.pending]: (state, action) => {
+        state.errors = [];
       state.loadings[`${action.meta.arg}Loading`] = true;
     },
     [getProducts.fulfilled]: (state, action) => {
@@ -64,15 +64,13 @@ const rootSlice = createSlice({
       state.loadings[`${action.meta.arg}Loading`] = false;
     },
     [getProducts.rejected]: (state, action) => {
-      state.errors.push({
-        type: action.meta.arg,
-        error: action.payload,
-      });
+        state.errors.push(action.payload);
       state.loadings[`${action.meta.arg}Loading`] = false;
     },
 
     // getAdditives
     [getAdditives.pending]: (state, action) => {
+        state.errors = [];
       state.loadings[`${action.meta.arg}Loading`] = true;
     },
     [getAdditives.fulfilled]: (state, action) => {
@@ -80,57 +78,47 @@ const rootSlice = createSlice({
       state.loadings[`${action.meta.arg}Loading`] = false;
     },
     [getAdditives.rejected]: (state, action) => {
-      state.errors.push({
-        type: action.meta.arg,
-        error: action.payload,
-      });
+        state.errors.push(action.payload);
       state.loadings[`${action.meta.arg}Loading`] = false;
     },
 
     //login
-    [login.pending]: (state, action) => {
+    [login.pending]: (state) => {
+        state.errors = [];
         state.loadings.authLoading = true
     },
     [login.fulfilled]: (state, action) => {
       state.auth.user.login = action.payload.user.login;
       state.auth.user.id = action.payload.user.id;
-      state.auth.token.access = action.payload.accessToken;
-      state.auth.token.refresh = action.payload.refreshToken;
       localStorage.setItem("token", action.payload.accessToken);
       state.auth.isAuth = true;
       state.loadings.authLoading = false
     },
     [login.rejected]: (state, action) => {
-        state.errors.push({
-            type: action.meta.arg,
-            error: action.payload,
-          });
+        state.errors.push(action.payload);
         state.loadings.authLoading = false
     },
 
     //registration
-    [registration.pending]: (state, action) => {
+    [registration.pending]: (state) => {
+        state.errors = [];
         state.loadings.authLoading = true
     },
     [registration.fulfilled]: (state, action) => {
       state.auth.user.login = action.payload.user.login;
       state.auth.user.id = action.payload.user.id;
-      state.auth.token.access = action.payload.accessToken;
-      state.auth.token.refresh = action.payload.refreshToken;
       localStorage.setItem("token", action.payload.accessToken);
       state.auth.isAuth = true;
       state.loadings.authLoading = false
     },
     [registration.rejected]: (state, action) => {
         state.loadings.authLoading = false
-        state.errors.push({
-            type: action.meta.arg,
-            error: action.payload,
-          });
+        state.errors.push(action.payload);
     },
 
     //logOut
     [logout.pending]: (state) => {
+        state.errors = [];
         state.loadings.authLoading = true
     },
     [logout.fulfilled]: (state, action) => {
@@ -141,31 +129,24 @@ const rootSlice = createSlice({
       state.loadings.authLoading = false
     },
     [logout.rejected]: (state) => {
-        state.errors.push({
-            type: action.meta.arg,
-            error: action.payload,
-          });
+        state.errors.push(action.payload);
         state.loadings.authLoading = false
     },
 
     //checkAuth
     [checkAuth.pending]: (state) => {
+        state.errors = [];
         state.loadings.authLoading = true
     },
     [checkAuth.fulfilled]: (state, action) => {
         state.auth.user.login = action.payload.user.login
         state.auth.user.id = action.payload.user.id
-        state.auth.token.access = action.payload.accessToken
-        state.auth.token.refresh = action.payload.refreshToken
         localStorage.setItem('token',action.payload.accessToken)
         state.auth.isAuth = true
         state.loadings.authLoading = false
     },
     [checkAuth.rejected]: (state, action) => {
-        state.errors.push({
-            type: action.meta.arg,
-            error: action.payload,
-          });
+        state.errors.push(action.payload);
         state.loadings.authLoading = false
     },
   },
